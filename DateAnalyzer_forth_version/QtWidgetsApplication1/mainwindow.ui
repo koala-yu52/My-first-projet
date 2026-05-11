@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1074</width>
+    <height>847</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* 1. 设置全局底色（清新淡雅灰） */
+QMainWindow {
+    background-color: #f2f2f2;
+}
+
+/* 2. 给多页面容器设置水印，使其在每一页的正中央显示 */
+#mainStackedWidget {
+    background-image: url(:/new/images/nankai_watermark.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* 3. 让页面背景透明，确保能看到底层的校徽 */
+#mainStackedWidget &gt; QWidget {
+    background: transparent;
+}
+
+/* 4. 按钮精修：白底 + 南开紫线条 */
+QPushButton {
+    background-color: #ffffff;
+    border: 1px solid #741B47;  /* 南开紫标准色 */
+    border-radius: 6px;
+    color: #741B47;
+    font-family: &quot;Microsoft YaHei&quot;;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 55px; /* 让按钮看起来厚实些 */
+}
+
+/* 按钮鼠标悬停效果：变色反转 */
+QPushButton:hover {
+    background-color: #741B47;
+    color: #ffffff;
+}
+
+/* 5. 表格、输入框、文本框：半透明白（若隐若现看到水印） */
+QTableWidget, QLineEdit, QTextEdit {
+    background-color: rgba(255, 255, 255, 150); /* 150/255 的透明度 */
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    color: #333333;
+}
+
+/* 6. 防止水印在按钮或小零件内部重复出现 */
+QPushButton, QLineEdit, QHeaderView, QLabel {
+    background-image: none;
+}
+#centralWidget {
+    background-color: #fdfaf2; /* 象牙暖米色 */
+    background-image: url(:/images/nankai_watermark.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton {
+    /* 使用 rgba，最后的 150 表示背景只有约 60% 的不透明度 */
+    background-color: rgba(255, 255, 255, 150); 
+    border: 1px solid #741B47;
+    border-radius: 8px;
+    color: #741B47;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    /* 悬停时稍微加深透明度，产生交互感 */
+    background-color: rgba(116, 27, 71, 40); 
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">#centralWidget {
+    background-color: #f4f4f9; /* 极淡的紫灰色，干净且有质感 */
+    background-image: url(:/images/nankai_watermark.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* 1. 按钮的常态：带有质感的南开紫 */
+QPushButton {
+    /* 渐变底色：让按钮看起来有立体感 */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, 
+                      stop:0 rgba(255, 255, 255, 255), 
+                      stop:1 rgba(240, 230, 245, 255));
+    
+    border: 2px solid #741B47;       /* 南开紫边框 */
+    border-radius: 12px;             /* 大圆角，更有游戏UI感 */
+    color: #741B47;                  /* 文字颜色 */
+    font-family: &quot;Microsoft YaHei&quot;;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    min-height: 55px;
+}
+
+/* 2. 鼠标悬停态：产生“发光”效果 */
+QPushButton:hover {
+    /* 背景变亮 */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, 
+                      stop:0 rgba(116, 27, 71, 20), 
+                      stop:1 rgba(116, 27, 71, 50));
+    
+    /* 边框变为亮紫色（霓虹光） */
+    border: 2px solid #a000ff;       
+    color: #a000ff;                  /* 文字也跟着亮起来 */
+    
+    /* 模拟外发光：增加边框厚度感 */
+    padding-left: 11px;
+    padding-top: 11px;
+}
+
+/* 3. 按钮按下态：反馈效果 */
+QPushButton:pressed {
+    background-color: #741B47;       /* 按下时背景填满南开紫 */
+    border: 2px solid #00f0ff;       /* 边框闪烁青色光芒（赛博点缀） */
+    color: white;                    /* 文字反白 */
+}
+QPushButton, QLabel, QLineEdit, QTableWidget {
+    background-image: none;
+}</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <item>
+     <widget class="QStackedWidget" name="mainStackedWidget">
+      <widget class="QWidget" name="page_home">
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="leftMargin">
+         <number>100</number>
+        </property>
+        <property name="topMargin">
+         <number>100</number>
+        </property>
+        <property name="rightMargin">
+         <number>100</number>
+        </property>
+        <property name="bottomMargin">
+         <number>100</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btn_go_fit">
+          <property name="text">
+           <string>曲线拟合与绘图</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btn_go_mean">
+          <property name="text">
+           <string>平均值计算</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btn_go_stats">
+          <property name="text">
+           <string>统计学 (方差/标准差)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="btn_go_ind">
+          <property name="text">
+           <string>间接计算不确定度</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="btn_go_B">
+          <property name="text">
+           <string>B类不确定度</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="btn_go_A">
+          <property name="text">
+           <string>A类不确定度</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_mean">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QGroupBox" name="group_input_mean">
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>测量数据录入</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QTableWidget" name="table_mean">
+               <column>
+                <property name="text">
+                 <string>测量值</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_add_mean">
+               <property name="text">
+                <string>添加数据行</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_del_mean">
+               <property name="text">
+                <string>删除选中行</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_calc_mean">
+               <property name="text">
+                <string>生成计算过程</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="group_process_mean">
+            <property name="title">
+             <string>详细计算过程</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QTextEdit" name="text_res_mean">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_mean">
+          <property name="text">
+           <string>返回主菜单</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_stats">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QGroupBox" name="group_input_stats">
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>统计数据录入</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <widget class="QTableWidget" name="table_stats">
+               <column>
+                <property name="text">
+                 <string>观测值</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_add_stats">
+               <property name="text">
+                <string>添加数据</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_del_stats">
+               <property name="text">
+                <string>删除数据</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_calc_stats">
+               <property name="text">
+                <string>计算方差与标准差</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="group_res_statsox">
+            <property name="title">
+             <string>统计分析报告</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QTextEdit" name="text_res_stats">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_stats">
+          <property name="text">
+           <string>返回主菜单</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_typeA">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QGroupBox" name="leftPanel_A">
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>数据录入与修正因子</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="QTableWidget" name="table_A">
+               <column>
+                <property name="text">
+                 <string>测量值</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QPushButton" name="btn_add_A">
+                 <property name="text">
+                  <string>添加行</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_del_A">
+                 <property name="text">
+                  <string>删除行</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>修正因子 (t):</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edit_t_A">
+               <property name="text">
+                <string>1</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_calc_A">
+               <property name="text">
+                <string>执行 A类不确定度计算</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="rightPanel_A">
+            <property name="title">
+             <string>A类不确定度计算报告</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QTextEdit" name="text_res_A">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_A">
+          <property name="text">
+           <string>返回主菜单</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_typeB">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QGroupBox" name="group_B_res">
+            <property name="title">
+             <string>计算结果</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QTextEdit" name="text_res_B">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="group_B_input">
+               <property name="maximumSize">
+                <size>
+                 <width>600</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>仪器参数录入</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>仪器误差 (Δ):</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="edit_delta_B"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>包含因子 (k):</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="edit_k_B">
+                  <property name="text">
+                   <string>1.732</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_calc_B">
+                  <property name="text">
+                   <string>计算 B类不确定度</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_back_B">
+               <property name="text">
+                <string>返回主菜单</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_indirect">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="leftPanel_ind">
+            <property name="maximumSize">
+             <size>
+              <width>350</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>公式与分量输入</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>公式输入：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edit_formula_ind"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_help">
+               <property name="font">
+                <font>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="text">
+                <string>用法：乘法必填* (a*b)；次方用^ (x^2)；</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_help_2">
+               <property name="font">
+                <font>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="text">
+                <string>根号用sqrt(x)；任意次方根用x^(1/n)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="table_ind">
+               <column>
+                <property name="text">
+                 <string>变量名</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>平均值 (xi)
+</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>不确定度 (ui)
+</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_add_ind">
+               <property name="text">
+                <string>添加行</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_del_ind">
+               <property name="text">
+                <string>删除行</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_calc_ind">
+               <property name="text">
+                <string>执行自动合成计算</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="rightPanel_ind">
+            <property name="title">
+             <string>合成分析报告</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QTextEdit" name="text_res_ind"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_ind">
+          <property name="text">
+           <string>返回主菜单</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_fitting">
+       <layout class="QVBoxLayout" name="verticalLayout_17">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QGroupBox" name="leftPanel_fit">
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>配置拟合数据</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_18">
+             <item>
+              <widget class="QTableWidget" name="table_fit">
+               <column>
+                <property name="text">
+                 <string>x数据</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>y数据</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_add_fit">
+               <property name="text">
+                <string>添加数据</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_del_fit">
+               <property name="text">
+                <string>删除数据</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>选择拟合模型</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="combo_fit_type">
+               <item>
+                <property name="text">
+                 <string>线性拟合 (y = ax + b)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>二次多项式 (y = ax² + bx + c)
+</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>三次多项式 (y = ax³ + bx² + cx + d)
+</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>四次多项式 (y = ax⁴ + ...)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>五次多项式 (y = ax⁵ + ...)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>指数函数 (y = a * e^(bx))</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>对数函数 (y = a * ln(x) + b)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>幂函数 (y = a * x^b)
+</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_run_fit">
+               <property name="text">
+                <string>执行拟合与绘图</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="rightPanel_fit">
+            <property name="title">
+             <string>曲线图形与数学模型</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <widget class="QCustomPlot" name="plotWidget_fit" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_10"/>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTextEdit" name="text_res_fit">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>250</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_back_fit">
+          <property name="text">
+           <string>返回主菜单</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1074</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header location="global">qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="mainwindow.qrc"/>
+ </resources>
+ <connections/>
+</ui>
