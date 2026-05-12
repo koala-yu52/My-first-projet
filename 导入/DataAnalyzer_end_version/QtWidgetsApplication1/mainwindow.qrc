@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/MainWindow"/>
+    <qresource prefix="/new/images">
+        <file>nankai_watermark.png</file>
+    </qresource>
+</RCC>
